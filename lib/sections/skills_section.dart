@@ -16,7 +16,7 @@ class _SkillsSectionState extends State<SkillsSection> {
   final List<Map<String, dynamic>> skills = const [
     {"name": "Java Spring Boot", "image": "assets/Java.png"},
     {"name": "Angular", "image": "assets/angular.png"},
-    {"name": "Node.js & Express", "image": "assets/npde.png"},
+    {"name": "Node.js & Express", "image": "assets/npde.jpeg"},
     {"name": "PostgreSQL", "image": "assets/posgres.png"},
     {"name": "JWT Authentication", "image": "assets/JWT Authentication.png"},
     {"name": "Linux Server Deployment", "image": "assets/linuxserver.jpeg"},
@@ -51,7 +51,7 @@ class _SkillsSectionState extends State<SkillsSection> {
                     crossAxisCount: 3,
                     crossAxisSpacing: 30,
                     mainAxisSpacing: 30,
-                    childAspectRatio: 2.2,
+                    childAspectRatio: 1.5,
                   ),
                   itemCount: skills.length,
                   itemBuilder: (context, index) {
@@ -61,7 +61,23 @@ class _SkillsSectionState extends State<SkillsSection> {
                       columnCount: 3,
                       child: ScaleAnimation(
                         child: FadeInAnimation(
-                          child: _skillCard(skills[index], theme),
+                          child: Column(
+                            children: [
+                              Expanded(child: _skillCard(skills[index], theme)),
+                              const SizedBox(height: 12),
+                              Text(
+                                skills[index]['name'],
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -85,25 +101,11 @@ class _SkillsSectionState extends State<SkillsSection> {
           image: AssetImage(skill['image']),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
-            Colors.black.withValues(alpha: 0.8),
+            Colors.black.withValues(alpha: 0.2),
             BlendMode.darken,
           ),
         ) : null,
         color: !hasImage ? Colors.white.withValues(alpha: 0.05) : null,
-      ),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            skill['name'],
-            style: const TextStyle(
-              fontSize: 18, 
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
       ),
     );
   }
